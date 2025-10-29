@@ -88,8 +88,30 @@ L’objectif est d’offrir une plateforme performante et évolutive capable de 
 ### 4. Justification des Choix Techniques
 
 - **Répartition des données** : Quelles données en PostgreSQL ? Quelles données en MongoDB ? Pourquoi ?
+- La base PostgreSQL est utilisée pour toutes les données structurées et transactionnelles, nécessitant des relations fortes et la cohérence ACID :
+
+Utilisateurs, adresses, commandes et articles de commande.
+Ces informations sont fortement liées et font souvent l’objet de jointures et de contraintes d’intégrité (clés étrangères, vérifications, etc.).
+PostgreSQL est donc idéal pour assurer la fiabilité, la cohérence et la facilité d’écriture de requêtes complexes (jointures, agrégations, sous-requêtes).
+
+La base MongoDB, quant à elle, stocke les données flexibles, riches en métadonnées ou à structure variable, notamment :
+
+Produits, catégories, avis clients et paniers.
+Ces données changent fréquemment de forme (ex. produits avec attributs différents selon la catégorie), et bénéficient d’une modélisation NoSQL souple pour s’adapter à ces variations futures.
+
 - **Modélisation MongoDB** : Documents imbriqués ou références ? Justification
+Les paniers (carts) contiennent une liste d’objets imbriqués (items) avec product_id et quantity.
+Cela permet de charger le panier complet d’un utilisateur en une seule requête.
+
+Les produits (products) et catégories (categories) sont reliés par référence (category_id), ce qui évite la duplication de données.
+
+Les avis (reviews) référencent à la fois un user_id (PostgreSQL) et un product_id (MongoDB), les reviews ne sont pas des données importantes donc elles peuvent être stocker ailleurs.
+
 - **Relations inter-bases** : Comment les deux bases communiquent-elles ?
+-Le champ user_id présent dans MongoDB (dans reviews et carts) correspond à id_user dans PostgreSQL.
+Le champ product_id utilisé dans PostgreSQL (order_item) et MongoDB (products) sert de lien logique entre les commandes et les produits.
+Elles communiquent via l'api qui les synchronise. Par exemple quand un user passe une commande, l'api récupère l'id de l'utilisateur pour créer le panier dans mongodb.
+
 
 ### 5. Exemples de Requêtes Complexes
 
