@@ -37,7 +37,6 @@ router.get('/:id', async (req, res) => {
 router.post('/', async (req, res) => {
   try {
     const { id_user, status, payment_method, items = [] } = req.body;
-    // Compute total_amount based on provided items
     let total = 0;
     if (Array.isArray(items)) {
       items.forEach((item) => {

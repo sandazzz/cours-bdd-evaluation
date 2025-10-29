@@ -25,13 +25,12 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// POST /order-items - create a new order item
 router.post('/', async (req, res) => {
   try {
     const { product_id, quantity, unit_price, id_order } = req.body;
     const created = await prisma.order_item.create({
       data: {
-        product_id: Number(product_id),
+        product_id,
         quantity: Number(quantity),
         unit_price: Number(unit_price),
         id_order: Number(id_order),
@@ -43,7 +42,6 @@ router.post('/', async (req, res) => {
   }
 });
 
-// PUT /order-items/:id - update an order item
 router.put('/:id', async (req, res) => {
   try {
     const id = Number(req.params.id);
@@ -63,7 +61,6 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-// DELETE /order-items/:id - delete an order item
 router.delete('/:id', async (req, res) => {
   try {
     const id = Number(req.params.id);
