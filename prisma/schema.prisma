@@ -1,15 +1,56 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
-  provider = "prisma-client"
+  provider = "prisma-client-js"
   output   = "../generated/prisma"
 }
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
+  url      = env("POSTGRES_URL")
+}
+
+model user {
+  id_user    Int      @id @default(autoincrement()) @map("id_user")
+  email      String   @unique @db.VarChar(150)
+  firstname  String   @db.VarChar(50)
+  lastname   String   @db.VarChar(100)
+  password   String   @db.VarChar(150)
+  role       String   @db.VarChar(50)
+  created_at DateTime @default(now()) @map("created_at")
+
+  addresses address[]
+  orders    order[]
+}
+
+model address {
+  id_address Int    @id @default(autoincrement()) @map("id_address")
+  type       String @db.VarChar(50)
+  street     String @db.Text
+  city       String @db.VarChar(100)
+  zip        String @db.VarChar(20)
+  country    String @db.VarChar(100)
+  id_user    Int
+
+  user user @relation(fields: [id_user], references: [id_user], onDelete: Cascade)
+}
+
+model order {
+  id_order       Int      @id @default(autoincrement()) @map("id_order")
+  order_date     DateTime @default(now())
+  status         String   @db.VarChar(50)
+  total_amount   Decimal  @db.Decimal(10, 2) @default(0)
+  payment_method String?  @db.VarChar(50)
+  id_user        Int
+
+  user  user        @relation(fields: [id_user], references: [id_user], onDelete: Cascade)
+  items order_item[]
+}
+
+model order_item {
+  id_order_item Int     @id @default(autoincrement()) @map("id_order_item")
+  product_id    Int
+  quantity      Int
+  unit_price    Decimal @db.Decimal(10, 2)
+  id_order      Int
+
+  order order @relation(fields: [id_order], references: [id_order], onDelete: Cascade)
 }

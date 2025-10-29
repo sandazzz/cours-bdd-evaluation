@@ -116,15 +116,48 @@ Elles communiquent via l'api qui les synchronise. Par exemple quand un user pass
 ### 5. Exemples de Requêtes Complexes
 
 **PostgreSQL**
-
+chiffre_d’affaires par utilisateur : 
 ```sql
--- Exemple de requête avec jointure et agrégat
+SELECT 
+    id_user,
+    SUM(total_amount) AS total_spent
+FROM 
+    ecommerce."order"
+GROUP BY 
+    id_user
+ORDER BY 
+    total_spent DESC;
+quantité totale vendue par produit :
+SELECT 
+    product_id,
+    SUM(quantity) AS total_vendu
+FROM 
+    ecommerce.order_item
+GROUP BY 
+    product_id
+ORDER BY 
+    total_vendu DESC;
+
 ```
 
 **MongoDB**
 
 ```javascript
 // Exemple de pipeline d'agrégation
+classement note moyenne par produit
+db.reviews.aggregate([
+  {
+    $group: {
+      _id: "$product_id",
+      avgRating: { $avg: "$rating" },
+      count: { $sum: 1 }
+    }
+  },
+  {
+    $sort: { avgRating: -1 }
+  }
+]);
+
 ```
 
 ### 6. Stratégie de Sauvegarde
@@ -135,3 +168,8 @@ Pour cette partie, vous devez effectuer des recherches afin d'argumenter vos ré
 - **MongoDB** : Méthode proposée (mongodump, replica set, etc.)
 - **Fréquence** : Complète, incrémentale, différentielle
 - **Restauration** : Procédure en cas de perte de données
+
+Pour notre projet, nous avons choisi une stratégie de sauvegarde mixte adaptée à l’utilisation de PostgreSQL et MongoDB.
+Pour PostgreSQL, nous mettrons en place une sauvegarde complète hebdomadaire de la base à l’aide de l’outil pg_dump. Les fichiers de sauvegarde seront donc stockés sur un volume externe ou un service cloud pour éviter les risques liés au serveur principal.
+Pour MongoDB, nous utiliserons mongodump pour effectuer une sauvegarde complète quotidienne des collections principales, tout en utilisant un replica set pour garantir la haute disponibilité et permettre la récupération à partir d’un nœud secondaire sans impacter la production.
+Cette stratégie permet d'avoir des sauvegardes régulières, qui assurent une reprise rapide de service en cas d’incident.
