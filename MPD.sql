@@ -9,7 +9,7 @@ SET search_path TO ecommerce;
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 CREATE EXTENSION IF NOT EXISTS pgcrypto;
 CREATE EXTENSION IF NOT EXISTS pg_trgm; -- Pour les recherches textuelles
-
+    
 -- ============================================================================
 -- TYPES PERSONNALISÉS
 -- ============================================================================
@@ -17,8 +17,8 @@ CREATE EXTENSION IF NOT EXISTS pg_trgm; -- Pour les recherches textuelles
 CREATE TABLE user (
   id_user       INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   email         VARCHAR(150) NOT NULL UNIQUE,
-  firstname     VARCHAR(50),
-  lastname      VARCHAR(100),
+  firstname     VARCHAR(50) NOT NULL,
+  lastname      VARCHAR(100) NOT NULL,
   password      VARCHAR(150) NOT NULL,
   role          VARCHAR(50) NOT NULL,
   created_at    DATE NOT NULL DEFAULT CURRENT_DATE
@@ -26,11 +26,11 @@ CREATE TABLE user (
 
 CREATE TABLE address (
   id_address  INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-  type        VARCHAR(50),
-  street      TEXT,
-  city        VARCHAR(100),
-  zip         VARCHAR(20),
-  country     VARCHAR(100),
+  type        VARCHAR(50) NOT NULL,
+  street      TEXT NOT NULL,
+  city        VARCHAR(100) NOT NULL,
+  zip         VARCHAR(20) NOT NULL,
+  country     VARCHAR(100) NOT NULL,
   id_user     INT NOT NULL,
   CONSTRAINT fk_address_user
     FOREIGN KEY (id_user)
@@ -41,7 +41,7 @@ CREATE TABLE address (
 CREATE TABLE ecommerce.order (
   id_order        INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   order_date      DATE NOT NULL DEFAULT CURRENT_DATE,
-  status          VARCHAR(50),
+  status          VARCHAR(50) NOT NULL,
   total_amount    NUMERIC(10,2) NOT NULL DEFAULT 0,
   payment_method  VARCHAR(50),
   id_user         INT NOT NULL,
