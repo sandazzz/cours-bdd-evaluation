@@ -47,7 +47,7 @@ model order {
 
 model order_item {
   id_order_item Int     @id @default(autoincrement()) @map("id_order_item")
-  product_id    Int
+  product_id    String  @db.VarChar(20)
   quantity      Int
   unit_price    Decimal @db.Decimal(10, 2)
   id_order      Int
