@@ -14,7 +14,7 @@ CREATE EXTENSION IF NOT EXISTS pg_trgm; -- Pour les recherches textuelles
 -- TYPES PERSONNALISÉS
 -- ============================================================================
 
-CREATE TABLE user (
+CREATE TABLE ecommerce.user (
   id_user       INT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   email         VARCHAR(150) NOT NULL UNIQUE,
   firstname     VARCHAR(50) NOT NULL,
