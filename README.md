@@ -7,6 +7,19 @@ Lenny Jean-Baptiste
 Sandarisoa Rakotovelo
 
 ---
+### Setup du projet
+
+1. Copiez le fichier .env.example dans un fichier .env
+
+2. Lancez la commande docker compose up -d
+
+3. Lancez la commande npm install
+
+4. Lancez la commande npx prisma generate
+
+5. Pour lancer le server, executez la commande npm run dev
+
+---
 
 ### 1. Présentation du Projet
 
