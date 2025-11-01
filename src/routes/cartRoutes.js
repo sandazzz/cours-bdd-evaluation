@@ -1,6 +1,6 @@
-const express = require('express');
-const Cart = require('../models/cart.model');
-const Product = require('../models/product.model');
+import express from 'express';
+import Cart from '../models/cart.model.js';
+import Product from '../models/product.model.js';
 
 const router = express.Router();
 
@@ -93,4 +93,4 @@ router.get('/stats/total-by-user', async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

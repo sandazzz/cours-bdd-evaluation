@@ -1,10 +1,4 @@
-/*
- * Mongoose schema and model for product reviews. Each review
- * references a user (via `user_id`) and a product (via `product_id`),
- * and stores a numeric rating as well as an optional comment.
- */
-
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const reviewSchema = new mongoose.Schema(
   {
@@ -39,4 +33,4 @@ const reviewSchema = new mongoose.Schema(
   },
 );
 
-module.exports = mongoose.model('Review', reviewSchema);
+export default mongoose.model('Review', reviewSchema);

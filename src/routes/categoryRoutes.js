@@ -1,5 +1,5 @@
-const express = require('express');
-const Category = require('../models/category.model');
+import express from 'express';
+import Category from '../models/category.model.js';
 
 const router = express.Router();
 
@@ -63,4 +63,4 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

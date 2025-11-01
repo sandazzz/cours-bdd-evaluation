@@ -1,6 +1,6 @@
-const express = require('express');
-const Product = require('../models/product.model');
-const Review = require('../models/review.model');
+import express from 'express';
+import Product from '../models/product.model.js';
+import Review from '../models/review.model.js';
 
 const router = express.Router();
 
@@ -94,4 +94,4 @@ router.get('/stats/avg-rating', async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;
