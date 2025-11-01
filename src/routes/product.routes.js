@@ -1,8 +1,8 @@
-import express from 'express';
-import Product from '../models/product.model.js';
-import Review from '../models/review.model.js';
+import { Router } from "express";
+import Product from '../../mongo/models/product.model.js';
+import Review from '../../mongo/models/review.model.js';
 
-const router = express.Router();
+const router = Router();
 
 router.get('/', async (req, res) => {
   try {

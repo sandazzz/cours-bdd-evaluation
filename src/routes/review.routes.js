@@ -1,7 +1,7 @@
-import express from 'express';
-import Review from '../models/review.model.js';
+import { Router } from "express";
+import Review from '../../mongo/models/review.model.js';
 
-const router = express.Router();
+const router = Router();
 
 router.get('/', async (req, res) => {
   try {

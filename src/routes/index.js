@@ -1,11 +1,11 @@
-import userRoutes from './userRoutes.js';
-import addressRoutes from './addressRoutes.js';
-import orderRoutes from './orderRoutes.js';
-import orderItemRoutes from './orderItemRoutes.js';
-import categoryRoutes from './categoryRoutes.js';
-import productRoutes from './productRoutes.js';
-import cartRoutes from './cartRoutes.js';
-import reviewRoutes from './reviewRoutes.js';
+import userRoutes from './user.routes.js';
+import addressRoutes from './address.routes.js';
+import orderRoutes from './order.routes.js';
+import orderItemRoutes from './order-item.routes.js';
+import categoryRoutes from './category.routes.js';
+import productRoutes from './product.routes.js';
+import cartRoutes from './cart.routes.js';
+import reviewRoutes from './review.routes.js';
 
 export default function router(app) {
   app.use('/users', userRoutes);

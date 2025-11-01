@@ -1,8 +1,8 @@
-import express from 'express';
-import Cart from '../models/cart.model.js';
-import Product from '../models/product.model.js';
+import { Router } from "express";
+import Cart from '../../mongo/models/cart.model.js';
+import Product from '../../mongo/models/product.model.js';
 
-const router = express.Router();
+const router = Router();
 
 router.get('/', async (req, res) => {
   try {

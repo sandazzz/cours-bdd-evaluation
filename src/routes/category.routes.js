@@ -1,7 +1,7 @@
-import express from 'express';
-import Category from '../models/category.model.js';
+import { Router } from "express";
+import Category from '../../mongo/models/category.model.js';
 
-const router = express.Router();
+const router = Router();
 
 router.get('/', async (req, res) => {
   try {
