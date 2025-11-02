@@ -37,12 +37,14 @@ model order {
   id_order       Int      @id @default(autoincrement()) @map("id_order")
   order_date     DateTime @default(now())
   status         String   @db.VarChar(50)
-  total_amount   Decimal  @db.Decimal(10, 2) @default(0)
+  total_amount   Decimal  @default(0) @db.Decimal(10, 2)
   payment_method String?  @db.VarChar(50)
   id_user        Int
 
-  user  user        @relation(fields: [id_user], references: [id_user], onDelete: Cascade)
+  user  user         @relation(fields: [id_user], references: [id_user], onDelete: Cascade)
   items order_item[]
+
+  @@index([id_user], name: "idx_order_user")
 }
 
 model order_item {
@@ -53,4 +55,6 @@ model order_item {
   id_order      Int
 
   order order @relation(fields: [id_order], references: [id_order], onDelete: Cascade)
+
+  @@index([id_order], name: "idx_order_item_order")
 }

@@ -1,7 +1,7 @@
-const express = require('express');
-const Review = require('../models/review.model');
+import { Router } from "express";
+import Review from '../../mongo/models/review.model.js';
 
-const router = express.Router();
+const router = Router();
 
 router.get('/', async (req, res) => {
   try {
@@ -59,4 +59,4 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;

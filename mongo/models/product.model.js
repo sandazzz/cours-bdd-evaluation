@@ -1,9 +1,4 @@
-/*
- * Mongoose schema and model for products. Products store flexible
- * attribute information and reference their category via `category_id`.
- */
-
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const productSchema = new mongoose.Schema(
   {
@@ -49,4 +44,4 @@ const productSchema = new mongoose.Schema(
   },
 );
 
-module.exports = mongoose.model('Product', productSchema);
+export default mongoose.model('Product', productSchema);

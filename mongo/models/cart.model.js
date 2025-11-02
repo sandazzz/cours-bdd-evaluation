@@ -1,11 +1,4 @@
-/*
- * Mongoose schema and model for shopping carts. Each cart document
- * contains an array of items referencing product documents by
- * product_id. The user_id field links back to a user stored in
- * PostgreSQL; numbers are used to align with the `id_user` column.
- */
-
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
 const itemSchema = new mongoose.Schema(
   {
@@ -43,4 +36,4 @@ const cartSchema = new mongoose.Schema(
   },
 );
 
-module.exports = mongoose.model('Cart', cartSchema);
+export default mongoose.model('Cart', cartSchema);

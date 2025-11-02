@@ -1,8 +1,8 @@
-const express = require('express');
-const Product = require('../models/product.model');
-const Review = require('../models/review.model');
+import { Router } from "express";
+import Product from '../../mongo/models/product.model.js';
+import Review from '../../mongo/models/review.model.js';
 
-const router = express.Router();
+const router = Router();
 
 router.get('/', async (req, res) => {
   try {
@@ -94,4 +94,4 @@ router.get('/stats/avg-rating', async (req, res) => {
   }
 });
 
-module.exports = router;
+export default router;
