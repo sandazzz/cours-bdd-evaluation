@@ -1,5 +1,6 @@
 import { Router } from "express";
 import prisma from '../lib/prisma.js';
+import Product from '../../mongo/models/product.model.js';
 
 const router = Router();
 
@@ -28,6 +29,12 @@ router.get('/:id', async (req, res) => {
 router.post('/', async (req, res) => {
   try {
     const { product_id, quantity, unit_price, id_order } = req.body;
+
+    const isProductExists = await Product.findById(product_id);
+    if (!isProductExists) {
+      return res.status(404).json({ error: "Product not found" });
+    }
+
     const created = await prisma.order_item.create({
       data: {
         product_id,
@@ -46,6 +53,12 @@ router.put('/:id', async (req, res) => {
   try {
     const id = Number(req.params.id);
     const { product_id, quantity, unit_price, id_order } = req.body;
+
+    const isProductExists = await Product.findById(product_id);
+    if (!isProductExists) {
+      return res.status(404).json({ error: "Product not found" });
+    }
+
     const updated = await prisma.order_item.update({
       where: { id_order_item: id },
       data: {
